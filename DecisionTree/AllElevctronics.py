@@ -21,22 +21,17 @@ for row in reader:
     
 vec = DictVectorizer()
 dummyX = vec.fit_transform(featureList).toarray()
-print(dummyX)
-print(vec.get_feature_names())
 
 lb = preprocessing.LabelBinarizer()
 dummyY = lb.fit_transform(labelList)
-print('dummyY: '+str(dummyY))
 
 clf = tree.DecisionTreeClassifier(criterion='entropy')
 clf = clf.fit(dummyX,dummyY)
-print("clf: "+str(clf))
 
 with open("D:/Code/DeepLearningBasics/DecisionTree/allElectronicInformationGainOri.dot",'w') as f:
     f = tree.export_graphviz(clf,feature_names=vec.get_feature_names(),out_file=f)
     
 oneRowX = dummyX[0,:]
-print(oneRowX)
 newRowX = oneRowX
 newRowX[0] = 1
 newRowX[2] = 0
